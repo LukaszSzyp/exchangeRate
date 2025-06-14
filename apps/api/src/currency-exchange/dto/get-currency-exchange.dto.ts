@@ -1,11 +1,12 @@
-import { IsEnum } from "class-validator"
+import { IsEnum } from 'class-validator';
 
-export const currencyPair = [
-    "EUR-PLN"
-]
-
+export enum SupportedCurrencyPair {
+  EUR_PLN = 'EUR-PLN',
+}
 
 export class GetCurrencyPairDto {
-    @IsEnum(["EUR-PLN"], {message: 'Not the correct currency pair!'})
-    currencyPair:typeof currencyPair[number]
+  @IsEnum(SupportedCurrencyPair, {
+    message: 'Not the correct currency pair!',
+  })
+  currencyPair: SupportedCurrencyPair;
 }

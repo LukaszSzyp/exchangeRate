@@ -6,10 +6,20 @@ import { GetCurrencyPairDto } from './dto/get-currency-exchange.dto';
 export class CurrencyExchangeController {
   constructor(private readonly currencyExchangeService: CurrencyExchangeService) {}
 
-  @Get('/exchange-rate')
-  async GetRate(@Query(new ValidationPipe()) currencyPair: GetCurrencyPairDto) {
-   const res = await this.currencyExchangeService.getExchangeRate(currencyPair);
-    return (res.data);
+  @Get('exchange-rate')
+  async getRate(
+    @Query(new ValidationPipe({ transform: true, whitelist: true }))
+    currencyPairDto: GetCurrencyPairDto,
+  ) {
+    try {
+      const { data } = await this.currencyExchangeService.getExchangeRate(
+        currencyPairDto,
+      );
+      return data;
+    } catch (err) {
+      // Re-throw as a Nest HttpException or map as needed
+      throw err;
+    }
   }
 
 }

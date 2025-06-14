@@ -10,10 +10,18 @@ export class CurrencyExchangeService {
   ) {}
 
 
-  getExchangeRate(currencyPair:GetCurrencyPairDto) {
-    const key = this.configService.get<string>('CURRENCY_SERVICE_KEY');
-    return this.httpService.axiosRef.get('https://ldktuanhf9.execute-api.eu-central-1.amazonaws.com/api', { headers: {
-      'x-api-key':key
-    }})
-  }
+  async getExchangeRate(currencyPairDto: GetCurrencyPairDto) {
+    const apiKey = this.configService.get<string>('CURRENCY_SERVICE_KEY');
+    if (!apiKey) {
+      throw new Error('CURRENCY_SERVICE_KEY not set');
+    }
+
+    return this.httpService.axiosRef.get(
+      'https://ldktuanhf9.execute-api.eu-central-1.amazonaws.com/api',
+      {
+        headers: { 'x-api-key': apiKey },
+        params: { currencyPair: currencyPairDto.currencyPair },
+      },
+    );
+   }
 }
