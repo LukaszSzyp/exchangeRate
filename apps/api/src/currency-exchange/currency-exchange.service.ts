@@ -56,7 +56,7 @@ export class CurrencyExchangeService {
       });
     }
 
-    const equivalent = (+amount / exchange_rate).toFixed(2);
+    const equivalent = (+amount * exchange_rate).toFixed(2);
 
     const exchangeTransaction = this.exchangeTransactionRepo.create({
       amount,
@@ -64,6 +64,11 @@ export class CurrencyExchangeService {
       currencyPair,
       currencyRate: String(exchange_rate),
     });
-    return await this.exchangeTransactionRepo.save(exchangeTransaction);
+    const transaction = await this.exchangeTransactionRepo.save(
+      exchangeTransaction,
+    );
+    return {
+      equivalent: transaction.equivalent,
+    };
   }
 }
