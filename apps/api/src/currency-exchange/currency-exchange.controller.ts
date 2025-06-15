@@ -5,6 +5,7 @@ import {
   Get,
   Post,
   Query,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -12,7 +13,9 @@ import { CurrencyPairCacheInterceptors } from './cacheInterceptors/currencyPairC
 import { CurrencyExchangeService } from './currency-exchange.service';
 import { GetCurrencyPairDto } from './dto/GetCurrencyPairDto.dto';
 import { PostExchangeTransactionDto } from './dto/PostExchangeTransaction.dto';
+import { ApiKeyGuard } from 'src/guards/api-key.guard';
 
+@UseGuards(ApiKeyGuard)
 @Controller('currency-exchange')
 export class CurrencyExchangeController {
   constructor(
