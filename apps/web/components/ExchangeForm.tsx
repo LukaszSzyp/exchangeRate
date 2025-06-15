@@ -41,7 +41,7 @@ export default function ExchangeForm({ currencyPair }: ExchangeFormProps) {
 
   async function onSubmit(values: ExchangeFormValues) {
     await executeTransaction({
-      amount: values.amount,
+      amount: "" + values.amount,
       currencyPair: currencyPair,
     })
   }
