@@ -16,6 +16,13 @@ export function useExchangeTransaction() {
       setLoading(true)
       setError(null)
       setData(null)
+
+      const apiKey = process.env.API_KEY
+
+      if (!apiKey) {
+        throw new Error("API_KEY is not set")
+      }
+
       try {
         const response = await fetch(
           "http://localhost:4000/currency-exchange/exchange-transaction",
@@ -23,6 +30,7 @@ export function useExchangeTransaction() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "x-api-key": apiKey,
             },
             body: JSON.stringify(transactionData),
           }
