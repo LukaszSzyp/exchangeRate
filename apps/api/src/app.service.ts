@@ -9,7 +9,13 @@ export class AppService {
     private cacheManager: Cache,
   ) {}
 
-  async getCacheKey(key: string): Promise<string | undefined> {
+  async getCacheKey(
+    key: string,
+  ): Promise<{ exchange_rate: number } | undefined> {
     return await this.cacheManager.get(key);
+  }
+
+  async setCacheKey(key: string, value: any): Promise<string | undefined> {
+    return await this.cacheManager.set(key, value);
   }
 }
