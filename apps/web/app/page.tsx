@@ -4,11 +4,21 @@ import { ExchangeRateResponse } from "@/lib/utils"
 
 const currencyPair = "EUR-PLN"
 async function getExchangeRate(): Promise<ExchangeRateResponse> {
+  const apiKey = process.env.API_KEY
+
+  if (!apiKey) {
+    throw new Error("API_KEY is not set")
+  }
   // Fetching directly on the server
   const res = await fetch(
     `http://localhost:4000/currency-exchange/exchange-rate?currencyPair=${currencyPair}`,
     {
-      cache: "no-store", // Ensure fresh data on each request
+      next: {
+        revalidate: 60,
+      },
+      headers: {
+        "x-api-key": apiKey,
+      },
     }
   )
 
