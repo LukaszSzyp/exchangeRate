@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GetCurrencyPairDto } from './dto/get-currency-exchange.dto';
 
@@ -25,8 +25,7 @@ export class CurrencyExchangeService {
       );
       return data;
     } catch (err) {
-      // Re-throw as a Nest HttpException or map as needed
-      throw err;
+      throw new ServiceUnavailableException();
     }
   }
 }
