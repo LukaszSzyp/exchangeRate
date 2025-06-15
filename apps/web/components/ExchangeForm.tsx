@@ -101,13 +101,8 @@ export default function ExchangeForm({ currencyPair }: ExchangeFormProps) {
               <Wallet className="mr-2 h-5 w-5" />
               You will get{" "}
               <span className="ml-2 text-2xl font-bold">
-                {transactionResult.convertedAmount.toFixed(2)}{" "}
-                {currencyPair.split("-")[1]}
+                {transactionResult.equivalent} {currencyPair.split("-")[1]}
               </span>
-            </p>
-            <p className="text-sm mt-1 opacity-90">
-              (Based on {transactionResult.amount.toFixed(2)}{" "}
-              {transactionResult.currencyPair.split("-")[0]})
             </p>
           </div>
         )}

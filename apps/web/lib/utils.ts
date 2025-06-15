@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export interface ExchangeRateResponse {
   exchange_rate: number
-  currencyPair: string
 }
 
 export interface ExchangeTransactionRequest {
@@ -16,8 +15,5 @@ export interface ExchangeTransactionRequest {
 }
 
 export interface ExchangeTransactionResponse {
-  amount: number
-  currencyPair: string
-  convertedAmount: number
-  timestamp: string
+  equivalent: string
 }

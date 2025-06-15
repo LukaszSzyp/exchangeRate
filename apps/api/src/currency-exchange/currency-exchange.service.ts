@@ -32,7 +32,7 @@ export class CurrencyExchangeService {
           params: { currencyPair: currencyPair },
         },
       );
-      return { ...data, currencyPair };
+      return data;
     } catch (err) {
       throw new ServiceUnavailableException();
     }
@@ -69,6 +69,7 @@ export class CurrencyExchangeService {
     );
     return {
       equivalent: transaction.equivalent,
+      currencyPair,
     };
   }
 }

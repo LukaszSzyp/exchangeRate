@@ -2,12 +2,11 @@ import ExchangeForm from "@/components/ExchangeForm"
 import ExchangeRateDisplay from "@/components/ExchangeRateDisplay"
 import { ExchangeRateResponse } from "@/lib/utils"
 
+const currencyPair = "EUR-PLN"
 async function getExchangeRate(): Promise<ExchangeRateResponse> {
-  const currencyPair = "EUR-PLN"
-
   // Fetching directly on the server
   const res = await fetch(
-    `http://localhost:4000/currency-exchange/exchange-rate?currencyPair=EUR-PLN`,
+    `http://localhost:4000/currency-exchange/exchange-rate?currencyPair=${currencyPair}`,
     {
       cache: "no-store", // Ensure fresh data on each request
     }
@@ -34,10 +33,13 @@ export default async function Home() {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
           <div className="flex justify-center">
-            <ExchangeRateDisplay rateData={rateData} />
+            <ExchangeRateDisplay
+              rateData={rateData}
+              currencyPair={currencyPair}
+            />
           </div>
           <div className="flex justify-center">
-            <ExchangeForm currencyPair={"EUR-PLN"} />
+            <ExchangeForm currencyPair={currencyPair} />
           </div>
         </div>
       </div>
