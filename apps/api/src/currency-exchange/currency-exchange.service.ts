@@ -41,7 +41,9 @@ export class CurrencyExchangeService {
   async create(postExchangeTransactionDto: PostExchangeTransactionDto) {
     const { amount, currencyPair } = postExchangeTransactionDto;
     const cacheKey = createCacheRateKey(currencyPair);
-    const cache = await this.appService.getCacheKey(cacheKey);
+    const cache = await this.appService.getCacheKey<{ exchange_rate: number }>(
+      cacheKey,
+    );
     let exchange_rate: number;
 
     if (cache) {
